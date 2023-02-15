@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Joe's Hotdogs</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="joeHotdogs.css">
+
+
+    <script>
+		function getOrder() 
+        {
+			// prompt the user to enter the quantity of each product
+			let quantities = [];
+			quantities.push(parseInt(prompt("Enter the quantity of HotDogs:")));
+			quantities.push(parseInt(prompt("Enter the quantity of French Fries:")));
+			quantities.push(parseInt(prompt("Enter the quantity of Drinks:")));
+
+			// calculate the total price
+			let prices = [4.00, 3.50, 1.75];
+			let subtotal = 0;
+			for (let i = 0; i < quantities.length; i++) 
+            {
+				subtotal += quantities[i] * prices[i];
+			}
+
+            // Joe's Special Offer
+            let discount = 0;
+            let newSubtotal = 0;
+            if (subtotal >= 20)
+            {
+                discount = 0.1*subtotal;
+            }
+
+            // Updating subtotal
+            newSubtotal = subtotal - discount;
+
+            // Adding Tax
+            let tax = 6.25;
+            let total = 0;
+            total = 1.0625*newSubtotal;
+
+			// display the total on the page
+            document.write("Order Summary: <br>");
+            document.write("Hotdogs x" + quantities[0] + ": $" + formatNumber(prices[0]*quantities[0]) + "<br>");
+            document.write("French Fries x" + quantities[1] + ": $" + formatNumber(prices[1]*quantities[1]) + "<br>");
+            document.write("Drinks x" + quantities[2] + ": $" + formatNumber(prices[2]*quantities[2]) + "<br>");
+            document.write("Subtotal: " + formatNumber(subtotal) + "<br>");
+            document.write("Discount: " + formatNumber(discount) + "<br>");
+            document.write("Tax: " + formatNumber(tax) + "<br>");
+            document.write("Total: " + formatNumber(total) + "<br>");    
+		}
+
+        //Rounding off and Formatting numbers
+        function formatNumber(num) 
+        {
+            // round the number to two decimal places
+            let roundedNum = Math.round(num * 100) / 100;
+
+            // convert the number to a string
+            let strNum = roundedNum.toString();
+
+            // check if the number already has two decimal places
+            if (strNum.indexOf('.') === -1) {
+              strNum += '.00';
+            } else if (strNum.indexOf('.') === strNum.length - 2) {
+              strNum += '0';
+            }
+        
+            return strNum;
+        }           
+
+	</script>
+</head>
+<body>
+	<h1>Joe's HotDogs</h1>
+	<p>Place your order by clicking the button below</p>
+	<button type="button" onclick="getOrder()">Order Now</button>
+</body>
+</html>
